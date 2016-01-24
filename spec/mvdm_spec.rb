@@ -74,7 +74,7 @@ describe "MVDM distance" do
     arr2 = [2,2,2]
     arr1.measure = metric
     d = arr1.distance(arr2)
-    d.should be(11.0)
+    d.should be_within(0.01).of(11.0)
   end
 
 end
