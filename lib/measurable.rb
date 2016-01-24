@@ -12,6 +12,7 @@ require 'measurable/haversine'
 require 'measurable/hamming'
 require 'measurable/levenshtein'
 require 'measurable/kullback_leibler'
+require 'measurable/mvdm'
 
 require 'measurable/interfaces'
 

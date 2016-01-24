@@ -37,6 +37,7 @@ The following are the similarity measures supported at the moment:
 - Hamming distance
 - [Levenshtein distance](http://en.wikipedia.org/wiki/Levenshtein_distance)
 - [Kullback-Leibler divergence](http://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)
+- Modified Value Difference Metric (MVDM)
 
 ## How to use
 
