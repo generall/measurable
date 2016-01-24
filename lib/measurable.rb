@@ -13,6 +13,8 @@ require 'measurable/hamming'
 require 'measurable/levenshtein'
 require 'measurable/kullback_leibler'
 
+require 'measurable/interfaces'
+
 module Measurable
   # PI / 180 degrees.
   RAD_PER_DEG = Math::PI / 180

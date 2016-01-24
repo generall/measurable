@@ -60,6 +60,27 @@ Measurable.euclidean_squared([3, 4]) # => 25
 
 Most of the methods accept arbitrary enumerable objects instead of Arrays. For example, it's possible to use [NMatrix](https://github.com/sciruby/nmatrix).
 
+Yoy can use `Measurable::MeasurableObject` mixin to make your own object measurable.
+You can also use distance function like object. For example, you can pass distance function to some classification algorithm.
+
+```ruby
+class String
+	# including mixin
+	include Measurable::MeasurableObject
+	# This function returns measurable object (Array, NMatrix, Enumerable, e.t.c)
+	def coords
+		self
+	end
+end
+# Strings are measurable now!
+s1 = 'string1'
+s2 = 'string2'
+# Setting up measure to use
+s1.measure = Measurable.getObject(:hamming)
+s1.distance s2
+# => 1
+```
+
 ## Documentation
 
 The documentation is hosted on [rubydoc](http://www.rubydoc.info/github/agarie/measurable).
