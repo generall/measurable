@@ -21,11 +21,11 @@ module Measurable
         return fl[label] || 0 / fc.to_f
       end
 
-      # clear all default_proc for Marshall.dump
+      # clear all default for Marshall.dump
       def prepDump()
-        @feature_count.default_proc = nil
-        @feature_label.default_proc = nil
-        @feature_label.values.each {|ds| ds.default_proc = nil}
+        @feature_count.default = nil
+        @feature_label.default = nil
+        @feature_label.values.each {|ds| ds.default = nil}
       end
     end
 
@@ -42,7 +42,7 @@ module Measurable
         end
       end
       @feature_indexes.each{|x| x.prepDump}
-      @label_count.default_proc = nil
+      @label_count.default = nil
     end
 
 
