@@ -9,7 +9,7 @@ module Measurable
         Measurable.send(@name, a, b)
       end
     end
-    def getObject(measure)
+    def object_for(measure)
       DistanceByName.new(measure)
     end
   end
@@ -18,35 +18,33 @@ module Measurable
 
   module MeasurableObject
     # Mixin to add ability for any object,
-    # which implements coords,
-    # to calc distance with 'calc_distance' function
+    # which implements coordinates,
+    # to calc distance with 'distance' function
     def distance(other, measure = nil, &distance)
       if distance
-        yield self.coords, other.coords
+        yield coordinates, other.coordinates
       else
         if measure
-          # it performs many str cmp =(
-          measure.distance(self.coords, other.coords)
+          measure.distance(coordinates, other.coordinates)
         else
           if @measure
-            @measure.distance(self.coords, other.coords)
+            @measure.distance(coordinates, other.coordinates)
           else
-            throw "No measure specified"
+            throw 'No measure specified'
           end
         end
       end
     end
 
     attr_accessor :measure
-    
   end
 end
 
-
+# Make Array to be Measurable. Coorinates of Array is Array itself.
 class Array
   include Measurable::MeasurableObject
 
-  def coords
+  def coordinates
     self
   end
 end

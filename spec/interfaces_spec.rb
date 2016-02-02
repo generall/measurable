@@ -9,11 +9,11 @@ describe "Interface for distance functions" do
 
   it "create object from measure label" do
     obj = nil
-    expect { obj = Measurable.getObject(:euclidean) }.to_not raise_error
+    expect { obj = Measurable.object_for(:euclidean) }.to_not raise_error
   end
 
   it "should calc euclidean distance" do
-    obj = Measurable.getObject(:euclidean)
+    obj = Measurable.object_for(:euclidean)
     d = @x.distance(@y, obj)
     d.should be_within(0.1).of(2**(0.5))
   end
@@ -27,11 +27,11 @@ describe "Interface for distance functions" do
     # Extending string to be measurable
     class String
       include Measurable::MeasurableObject
-      def coords
+      def coordinates
         self
       end
     end
-    @u.measure = Measurable.getObject(:hamming)
+    @u.measure = Measurable.object_for(:hamming)
     d = @u.distance(@v)
     d.should be(17)
   end

@@ -69,7 +69,7 @@ class String
 	# including mixin
 	include Measurable::MeasurableObject
 	# This function returns measurable object (Array, NMatrix, Enumerable, e.t.c)
-	def coords
+	def coordinates
 		self
 	end
 end
@@ -77,7 +77,7 @@ end
 s1 = 'string1'
 s2 = 'string2'
 # Setting up measure to use
-s1.measure = Measurable.getObject(:hamming)
+s1.measure = Measurable.object_for(:hamming)
 s1.distance s2
 # => 1
 ```
