@@ -1,9 +1,10 @@
 module Measurable
-  class MVDM
+  module Probabilities
     #
     # Internal class for indexing features occurrence
     #
     class FeatureIndex
+      attr_accessor :feature_label, :feature_count
       def initialize
         @feature_count = Hash.new(0)
         @feature_label = Hash.new { |hash, key| hash[key] = Hash.new(0) }
@@ -14,11 +15,13 @@ module Measurable
         @feature_label[val][label] += 1
       end
 
+      # calculate conditional probability
+      # P( +label+ | +feature+ )
       def probability(feature, label)
         fc = @feature_count[feature]
         fl = @feature_label[feature]
         return 0.0 unless fc || fl
-        return fl[label] || 0 / fc.to_f
+        return (fl[label] || 0.0) / fc.to_f
       end
 
       # clear all default for Marshall.dump
@@ -28,16 +31,21 @@ module Measurable
         @feature_label.values.each { |ds| ds.default = nil }
       end
     end
+  end
+  class MVDM
 
+    # +data+ - is array of data to learn
+    # +labels+ - is corresponding to dataset targer label of class
+    # +norm+ - is normalisation flag
     def initialize(data, labels, norm = false)
       @data_size = norm ? data.size.to_f : 1
-      @feature_indexes = data.first.size.times.map { FeatureIndex.new }
+      @feature_indexes = data.first.size.times.map { Probabilities::FeatureIndex.new }
       @label_count = Hash.new { |hash, key| hash[key] = 0 }
       data.each.with_index do |row, irow|
+        label = labels[irow]
+        @label_count[label] += 1
         row.each.with_index do |x, i|
           fi = @feature_indexes[i]
-          label = labels[irow]
-          @label_count[label] += 1
           fi.add_feature(x, label)
         end
       end
@@ -46,7 +54,7 @@ module Measurable
     end
 
     # call-seq:
-    #     mvdm.distance(first, second) -> Float
+    #     mvdm.distance(obj1, obj2) -> Float
     #
     # Calculate difference of conditional probabilities
     #   of label occurrence with given feature.
@@ -58,21 +66,21 @@ module Measurable
     #   with symbolic features." Machine learning 10.1 (1993): 57-78.
     #
     # Arguments:
-    # - +first+ -> A sequence of object.
-    # - +second+ -> A sequence of object with the same size of +first+.
+    # - +obj1+ -> A sequence of object.
+    # - +obj2+ -> A sequence of object with the same size of +obj1+.
     # Returns:
     # - sum of difference of conditional probabilities
     #   of label occurrence with given feature for all features.
     #
     # Raises:
-    # - +ArgumentError+ -> The sizes of +first+ and +second+ don't match.
-    def distance(first, second)
-      fail ArgumentError if first.size != second.size
-      sz = first.size
+    # - +ArgumentError+ -> The sizes of +obj1+ and +obj2+ don't match.
+    def distance(obj1, obj2)
+      fail ArgumentError if obj1.size != obj2.size
+      sz = obj1.size
       @label_count.keys.reduce(0) do |dist, label|
         dist + sz.times.reduce(0) do |sum, i|
-          a = first[i]
-          b = second[i]
+          a = obj1[i]
+          b = obj2[i]
           fi = @feature_indexes[i]
           sum + (fi.probability(a, label) - fi.probability(b, label)).abs
         end
