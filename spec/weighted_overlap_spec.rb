@@ -36,7 +36,7 @@ describe "MVDM distance" do
 
   it "should calc weighted distance" do
     wo = Measurable::WeightedOverlap.new(@data, @labels)
-    d = wo.distance([:a, :b, :c], [:g, :b, :c])
+    d = wo.distance([:a, :c, :b], [:g, :b, :c])
     w = wo.weights
     d.should be_within(1e-5).of(w[1] + w[2])
   end

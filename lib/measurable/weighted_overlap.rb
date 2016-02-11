@@ -98,7 +98,7 @@ module Measurable
         a = data.first[0]
         b = data.first[1]
         i = data.last
-        sum + (a == b ? @weights[i] : 0.0)
+        sum + (a != b ? @weights[i] : 0.0)
       end
     end
   end
