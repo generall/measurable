@@ -40,11 +40,11 @@ module Measurable
 
     def initialize(data = nil, labels = nil)
       # if distance is not initialized with data - all weights are equal to 1.
+      @weights = Hash.new(1.0)
       return unless data && labels # do nothing if no data provided
       return if data.empty? || labels.empty?
       fail ArgumentError if data.size != labels.size
 
-      @weights = Hash.new(1.0)
       @data_size  = data.size
       @feature_indexes = data.first.size.times.map { Probabilities::FeatureIndex.new }
       @label_count = Hash.new { |hash, key| hash[key] = 0 }

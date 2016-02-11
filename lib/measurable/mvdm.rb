@@ -39,6 +39,7 @@ module Measurable
     # +norm+ - is normalisation flag
     def initialize(data, labels, norm = false)
       @data_size = norm ? data.size.to_f : 1
+      return if data.empty?
       @feature_indexes = data.first.size.times.map { Probabilities::FeatureIndex.new }
       @label_count = Hash.new { |hash, key| hash[key] = 0 }
       data.each.with_index do |row, irow|
