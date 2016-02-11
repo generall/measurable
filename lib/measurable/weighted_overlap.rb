@@ -67,6 +67,31 @@ module Measurable
       @label_count.default = nil
     end
 
+    # call-seq:
+    #     weighted_overlap.distance(obj1, obj2) -> Float
+    #
+    # Calculate weighted similarity between +obj1+ and +obj2+.
+    # Weights are calculated like Information Gain.
+    # 
+    #
+    # Return weighted sum of differences for all features in input datum.
+    #
+    # @inproceedings{kira1992practical,
+    #   title={A practical approach to feature selection},
+    #   author={Kira, Kenji and Rendell, Larry A},
+    #   booktitle={Proceedings of the ninth international workshop on Machine learning},
+    #   pages={249--256},
+    #   year={1992}
+    # }
+    #
+    # Arguments:
+    # - +obj1+ -> A sequence of object.
+    # - +obj2+ -> A sequence of object with the same size of +obj1+.
+    # Returns:
+    # - weighted sum of difference of overlap for all features.
+    #
+    # Raises:
+    # - +ArgumentError+ -> The sizes of +obj1+ and +obj2+ don't match.
     def distance(obj1, obj2)
       fail ArgumentError if obj1.size != obj2.size
       obj1.zip(obj2).each.with_index.reduce(0.0) do |sum, data|

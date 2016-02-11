@@ -1,4 +1,3 @@
-require 'pry'
 describe "MVDM distance" do
 
   before :all do
@@ -25,7 +24,9 @@ describe "MVDM distance" do
   it "should calc information gain weighting" do
     wo = Measurable::WeightedOverlap.new(@data, @labels)
     p1 = wo.feature_indexes[0].probability(:a, :c1)
+    p2 = wo.feature_indexes[0].probability(:g, :c1)
     p1.should be_within(1e-5).of(3/7.0)
+    p2.should be_within(1e-5).of(0.0)
     w = wo.weights
     w[0].should be_within(1e-5).of(0.0)
     w[1].should be_within(1e-1).of(1.5)
