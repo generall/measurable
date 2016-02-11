@@ -41,6 +41,7 @@ module Measurable
     def initialize(data = nil, labels = nil)
       # if distance is not initialized with data - all weights are equal to 1.
       return unless data && labels # do nothing if no data provided
+      return if data.empty? || labels.empty?
       fail ArgumentError if data.size != labels.size
 
       @weights = Hash.new(1.0)
