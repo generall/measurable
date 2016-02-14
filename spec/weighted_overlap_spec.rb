@@ -1,4 +1,4 @@
-describe "MVDM distance" do
+describe "WeightedOverlap distance" do
 
   before :all do
     @data = [
@@ -29,10 +29,21 @@ describe "MVDM distance" do
     p2.should be_within(1e-5).of(0.0)
     w = wo.weights
     w[0].should be_within(1e-5).of(0.0)
-    w[1].should be_within(1e-1).of(1.5)
+    w[1].should be_within(1e-1).of(1.5) # 1.5566567
     w[2].should be_within(1e-5).of(w[1])
   end
 
+  it "should calc information gain ratio weighting" do
+    wo = Measurable::WeightedOverlap.new(@data, @labels, :ratio => true)
+    p1 = wo.feature_indexes[0].probability(:a, :c1)
+    p2 = wo.feature_indexes[0].probability(:g, :c1)
+    p1.should be_within(1e-5).of(3/7.0)
+    p2.should be_within(1e-5).of(0.0)
+    w = wo.weights
+    w[0].should be_within(1e-5).of(0.0)
+    w[1].should be_within(1e-5).of(1.0)
+    w[2].should be_within(1e-1).of(0.5) # 0.55449231
+  end
 
   it "should calc weighted distance" do
     wo = Measurable::WeightedOverlap.new(@data, @labels)

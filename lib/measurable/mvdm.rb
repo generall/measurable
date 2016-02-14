@@ -8,11 +8,13 @@ module Measurable
       def initialize
         @feature_count = Hash.new(0)
         @feature_label = Hash.new { |hash, key| hash[key] = Hash.new(0) }
+        @total_count = 0
       end
 
       def add_feature(val, label)
         @feature_count[val] += 1
         @feature_label[val][label] += 1
+        @total_count += 1
       end
 
       # calculate conditional probability
@@ -22,6 +24,16 @@ module Measurable
         fl = @feature_label[feature]
         return 0.0 unless fc || fl
         return (fl[label] || 0.0) / fc.to_f
+      end
+
+      # calculate entropy of feature
+      def entropy
+        - @feature_count.reduce(0.0) do |sum, pair|
+          value = pair[0]
+          count = pair[1]
+          prob = count / @total_count.to_f
+          sum + prob * Math::log(prob, 2) 
+        end
       end
 
       # clear all default for Marshall.dump
@@ -37,8 +49,8 @@ module Measurable
     # +data+ - is array of data to learn
     # +labels+ - is corresponding to dataset targer label of class
     # +norm+ - is normalisation flag
-    def initialize(data, labels, norm = false)
-      @data_size = norm ? data.size.to_f : 1
+    def initialize(data, labels, options = {})
+      @data_size = options[:norm] ? data.size.to_f : 1
       return if data.empty?
       @feature_indexes = data.first.size.times.map { Probabilities::FeatureIndex.new }
       @label_count = Hash.new { |hash, key| hash[key] = 0 }

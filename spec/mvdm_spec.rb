@@ -58,7 +58,7 @@ describe "MVDM distance" do
   end
 
   it "should calc MVDM ratio" do
-    metric = Measurable::MVDM.new(@data, @labels, true)
+    metric = Measurable::MVDM.new(@data, @labels, :norm => true)
     res = @test.map do |a, b|
       metric.distance(a,b)
     end

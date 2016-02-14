@@ -20,9 +20,9 @@ module Measurable
     def information_gain(feature_index)
       # for each feature value weighted by feature probability
       label_entropy - feature_index.feature_count.reduce(0.0) do |sum, pair|
-        feature = pair[0]
+        value = pair[0]
         count = pair[1]
-        sum + conditional_entropy(feature_index, feature) * count
+        sum + conditional_entropy(feature_index, value) * count
       end / @data_size.to_f
     end
 
@@ -38,7 +38,7 @@ module Measurable
       @label_entropy_cahce
     end
 
-    def initialize(data = nil, labels = nil)
+    def initialize(data = nil, labels = nil, options = {})
       # if distance is not initialized with data - all weights are equal to 1.
       @weights = Hash.new(1.0)
       return unless data && labels # do nothing if no data provided
@@ -60,6 +60,15 @@ module Measurable
 
       @feature_indexes.each.with_index do |feature_index, index|
         @weights[index] = information_gain(feature_index)
+      end
+
+      if options[:ratio]
+        @weights.each do |key, w|
+          feature_index = @feature_indexes[key]
+          entropy = feature_index.entropy 
+          w /= entropy if w.abs > 1e-9 
+          @weights[key] = w
+        end
       end
 
       # determine feature count
