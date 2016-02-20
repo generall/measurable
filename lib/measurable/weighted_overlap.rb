@@ -58,16 +58,22 @@ module Measurable
         end
       end
 
-      @feature_indexes.each.with_index do |feature_index, index|
-        @weights[index] = information_gain(feature_index)
-      end
+      if options[:skip_weighting]
+        @feature_indexes.each.with_index do |feature_index, index|
+          @weights[index] = 1.0
+        end
+      else
+        @feature_indexes.each.with_index do |feature_index, index|
+          @weights[index] = information_gain(feature_index)
+        end
 
-      if options[:ratio]
-        @weights.each do |key, w|
-          feature_index = @feature_indexes[key]
-          entropy = feature_index.entropy 
-          w /= entropy if w.abs > 1e-9 
-          @weights[key] = w
+        if options[:ratio]
+          @weights.each do |key, w|
+            feature_index = @feature_indexes[key]
+            entropy = feature_index.entropy 
+            w /= entropy if w.abs > 1e-9 
+            @weights[key] = w
+          end
         end
       end
 
@@ -77,6 +83,11 @@ module Measurable
       @label_count.default = nil
     end
 
+    # calculate distance dontribution by features +f1+ and +f2+ with index +idx+
+    def feature_contribution(f1, f2, idx)
+      weight = @weight[idx]
+      dist = f1 != f2 ? weight : 0.0;
+    end
     # call-seq:
     #     weighted_overlap.distance(obj1, obj2) -> Float
     #
