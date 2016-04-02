@@ -46,23 +46,6 @@ module Measurable
   end
   class MVDM
 
-    # computes matrix for [feature, feature] summed over all labels
-    def pre_compute_distance_matrix
-      @distance_matrix = Hash.new()
-      @feature_indexes.each.with_index do |feature_index, key|
-        @distance_matrix[key] = Hash.new(0.0)
-        indexes = feature_index.feature_count.keys.product(feature_index.feature_count.keys)
-        indexes.each do |index|
-          a = index[0]
-          b = index[1]
-          @distance_matrix[key][index] = @label_count.keys.reduce(0) do |dist, label|
-            dist + (feature_index.probability(a, label) - feature_index.probability(b, label)).abs
-          end / @data_size
-        end
-      end
-    end
-
-
     # +data+ - is array of data to learn
     # +labels+ - is corresponding to dataset targer label of class
     # +norm+ - is normalisation flag
@@ -79,7 +62,6 @@ module Measurable
           fi.add_feature(x, label)
         end
       end
-      pre_compute_distance_matrix
       @feature_indexes.each(&:prepare_for_marshalling)
       @label_count.default = nil
     end
@@ -107,12 +89,15 @@ module Measurable
     # - +ArgumentError+ -> The sizes of +obj1+ and +obj2+ don't match.
     def distance(obj1, obj2)
       fail ArgumentError if obj1.size != obj2.size
-      fail ArgumentError if obj1.size != @distance_matrix.size
-      @distance_matrix.reduce(0.0) do |sum, pair|
-        key  = pair[0]
-        dist = pair[1]
-        sum + dist[[obj1[key], obj2[key]]]
-      end
+      sz = obj1.size
+      @label_count.keys.reduce(0) do |dist, label|
+        dist + sz.times.reduce(0) do |sum, i|
+          a = obj1[i]
+          b = obj2[i]
+          fi = @feature_indexes[i]
+          sum + (fi.probability(a, label) - fi.probability(b, label)).abs
+        end
+      end / @data_size
     end
   end
 end

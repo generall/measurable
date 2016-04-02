@@ -38,7 +38,7 @@ The following are the similarity measures supported at the moment:
 - [Levenshtein distance](http://en.wikipedia.org/wiki/Levenshtein_distance)
 - [Kullback-Leibler divergence](http://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)
 - Modified Value Difference Metric (MVDM)
-- Weighted overlap with Information Gain and Information Gain Ratio
+- Weighted overlap with Information Gain
 
 ## How to use
 
