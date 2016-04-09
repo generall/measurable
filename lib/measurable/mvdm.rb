@@ -44,21 +44,29 @@ module Measurable
       end
     end
   end
+  
+  
+  require 'matrix'
+  require 'pry'
   class MVDM
 
     # computes matrix for [feature, feature] summed over all labels
-    def pre_compute_distance_matrix
-      @distance_matrix = Hash.new()
+    def pre_compute_distance_matrixes
+      @distance_matrixes = Hash.new
+      @feature_remap = Hash.new # feature value to index maps
       @feature_indexes.each.with_index do |feature_index, key|
-        @distance_matrix[key] = Hash.new(0.0)
-        indexes = feature_index.feature_count.keys.product(feature_index.feature_count.keys)
-        indexes.each do |index|
-          a = index[0]
-          b = index[1]
-          @distance_matrix[key][index] = @label_count.keys.reduce(0) do |dist, label|
+        @distance_matrixes[key] = Hash.new(0.0)
+        remap = feature_index.feature_count.keys
+        uniq_feature_count = remap.size 
+        matrix = Matrix.build(uniq_feature_count, uniq_feature_count) do |row, column|
+          a = remap[row]
+          b = remap[column]
+          @label_count.keys.reduce(0) do |dist, label|
             dist + (feature_index.probability(a, label) - feature_index.probability(b, label)).abs
           end / @data_size
         end
+        @distance_matrixes[key] = matrix
+        @feature_remap[key]   = remap.map.with_index{|x, i| [x, i] }.to_h
       end
     end
 
@@ -79,7 +87,7 @@ module Measurable
           fi.add_feature(x, label)
         end
       end
-      pre_compute_distance_matrix
+      pre_compute_distance_matrixes
       @feature_indexes.each(&:prepare_for_marshalling)
       @label_count.default = nil
     end
@@ -107,11 +115,15 @@ module Measurable
     # - +ArgumentError+ -> The sizes of +obj1+ and +obj2+ don't match.
     def distance(obj1, obj2)
       fail ArgumentError if obj1.size != obj2.size
-      fail ArgumentError if obj1.size != @distance_matrix.size
-      @distance_matrix.reduce(0.0) do |sum, pair|
+      fail ArgumentError if obj1.size != @distance_matrixes.size
+      @distance_matrixes.reduce(0.0) do |sum, pair|
         key  = pair[0]
-        dist = pair[1]
-        sum + dist[[obj1[key], obj2[key]]]
+        dist_matrix = pair[1]
+        remap = @feature_remap[key]
+        index1 = remap[obj1[key]]
+        index2 = remap[obj2[key]]
+        next sum if index1.nil? || index2.nil? 
+        sum + dist_matrix[index1, index2]
       end
     end
   end

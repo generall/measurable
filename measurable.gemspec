@@ -23,7 +23,9 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 1.9.3'
 
+  gem.add_dependency 'nmatrix'
   gem.add_development_dependency 'bundler'
+  gem.add_development_dependency 'pry'
   gem.add_development_dependency 'rake', '~> 10.1'
   gem.add_development_dependency 'rdoc', '~> 4.1'
   gem.add_development_dependency 'rspec', '~> 3.2'
