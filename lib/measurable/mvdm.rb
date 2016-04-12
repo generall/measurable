@@ -48,6 +48,8 @@ module Measurable
   
   require 'matrix'
   require 'pry'
+
+  MAX_MATRIX_SIZE=1024
   class MVDM
 
     # computes matrix for [feature, feature] summed over all labels
@@ -56,7 +58,7 @@ module Measurable
       @feature_remap = Hash.new # feature value to index maps
       @feature_indexes.each.with_index do |feature_index, key|
         @distance_matrixes[key] = Hash.new(0.0)
-        remap = feature_index.feature_count.keys
+        remap = feature_index.feature_count.keys.sort_by{|x| feature_index.feature_count[x]}.first(1024)
         uniq_feature_count = remap.size 
         matrix = Matrix.build(uniq_feature_count, uniq_feature_count) do |row, column|
           a = remap[row]
@@ -66,7 +68,7 @@ module Measurable
           end / @data_size
         end
         @distance_matrixes[key] = matrix
-        @feature_remap[key]   = remap.map.with_index{|x, i| [x, i] }.to_h
+        @feature_remap[key] = remap.map.with_index{|x, i| [x, i] }.to_h
       end
     end
 
@@ -122,8 +124,17 @@ module Measurable
         remap = @feature_remap[key]
         index1 = remap[obj1[key]]
         index2 = remap[obj2[key]]
-        next sum if index1.nil? || index2.nil? 
-        sum + dist_matrix[index1, index2]
+        if index1.nil? || index2.nil? 
+          a = obj1[key]
+          b = obj2[key]
+          feature_index = @feature_indexes[key]
+          sum += @label_count.keys.reduce(0) do |dist, label|
+            dist + (feature_index.probability(a, label) - feature_index.probability(b, label)).abs
+          end / @data_size
+        else
+          sum += dist_matrix[index1, index2]
+        end
+        sum
       end
     end
   end
