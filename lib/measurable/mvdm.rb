@@ -58,14 +58,14 @@ module Measurable
       @feature_remap = Hash.new # feature value to index maps
       @feature_indexes.each.with_index do |feature_index, key|
         @distance_matrixes[key] = Hash.new(0.0)
-        remap = feature_index.feature_count.keys.sort_by{|x| feature_index.feature_count[x]}.first(1024)
+        remap = feature_index.feature_count.keys.sort_by{|x| feature_index.feature_count[x]}.first(MAX_MATRIX_SIZE)
         uniq_feature_count = remap.size 
         matrix = Matrix.build(uniq_feature_count, uniq_feature_count) do |row, column|
           a = remap[row]
           b = remap[column]
           @label_count.keys.reduce(0) do |dist, label|
             dist + (feature_index.probability(a, label) - feature_index.probability(b, label)).abs
-          end / @data_size
+          end / @normalization_size
         end
         @distance_matrixes[key] = matrix
         @feature_remap[key] = remap.map.with_index{|x, i| [x, i] }.to_h
@@ -77,7 +77,6 @@ module Measurable
     # +labels+ - is corresponding to dataset targer label of class
     # +norm+ - is normalisation flag
     def initialize(data, labels, options = {})
-      @data_size = options[:norm] ? data.size.to_f : 1
       return if data.empty?
       @feature_indexes = data.first.size.times.map { Probabilities::FeatureIndex.new }
       @label_count = Hash.new { |hash, key| hash[key] = 0 }
@@ -89,9 +88,11 @@ module Measurable
           fi.add_feature(x, label)
         end
       end
+      # Normalization acress different label count
+      @normalization_size = options[:norm] ? (@label_count.size * @feature_indexes.size).to_f : 1
       pre_compute_distance_matrixes
       @feature_indexes.each(&:prepare_for_marshalling)
-      @label_count.default = nil
+      @label_count.default = nil 
     end
 
     # call-seq:
@@ -130,7 +131,7 @@ module Measurable
           feature_index = @feature_indexes[key]
           sum += @label_count.keys.reduce(0) do |dist, label|
             dist + (feature_index.probability(a, label) - feature_index.probability(b, label)).abs
-          end / @data_size
+          end / @normalization_size
         else
           sum += dist_matrix[index1, index2]
         end
