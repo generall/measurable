@@ -53,12 +53,12 @@ module Measurable
   class MVDM
 
     # computes matrix for [feature, feature] summed over all labels
-    def pre_compute_distance_matrixes
+    def pre_compute_distance_matrixes(matrix_size = nil)
       @distance_matrixes = Hash.new
       @feature_remap = Hash.new # feature value to index maps
       @feature_indexes.each.with_index do |feature_index, key|
         @distance_matrixes[key] = Hash.new(0.0)
-        remap = feature_index.feature_count.keys.sort_by{|x| feature_index.feature_count[x]}.first(MAX_MATRIX_SIZE)
+        remap = feature_index.feature_count.keys.sort_by{|x| feature_index.feature_count[x]}.first(matrix_size || MAX_MATRIX_SIZE)
         uniq_feature_count = remap.size 
         matrix = Matrix.build(uniq_feature_count, uniq_feature_count) do |row, column|
           a = remap[row]
@@ -91,7 +91,7 @@ module Measurable
       # Normalization acress different label count
       @normalization_size = options[:norm] ? (@label_count.size * @feature_indexes.size) : 1
       @normalization_size = @normalization_size == 0 ? 1 : @normalization_size
-      pre_compute_distance_matrixes
+      pre_compute_distance_matrixes(options[:matrix_size])
       @feature_indexes.each(&:prepare_for_marshalling)
       @label_count.default = nil 
     end
