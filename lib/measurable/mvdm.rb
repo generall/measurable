@@ -89,7 +89,8 @@ module Measurable
         end
       end
       # Normalization acress different label count
-      @normalization_size = options[:norm] ? (@label_count.size * @feature_indexes.size).to_f : 1
+      @normalization_size = options[:norm] ? (@label_count.size * @feature_indexes.size) : 1
+      @normalization_size = @normalization_size == 0 ? 1 : @normalization_size
       pre_compute_distance_matrixes
       @feature_indexes.each(&:prepare_for_marshalling)
       @label_count.default = nil 
