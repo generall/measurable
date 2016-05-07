@@ -10,7 +10,7 @@ describe "WeightedOverlap distance" do
       [:a, :c, :g]
     ]
     @labels = [
-       :c1, :c1, :c1, :c2, :c2, :c3, :c3
+      :c1, :c1, :c1, :c2, :c2, :c3, :c3
     ]
   end
 
