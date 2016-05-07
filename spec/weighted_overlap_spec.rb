@@ -1,5 +1,4 @@
 describe "WeightedOverlap distance" do
-
   before :all do
     @data = [
       [:a, :a, :a],
@@ -11,11 +10,11 @@ describe "WeightedOverlap distance" do
       [:a, :c, :g]
     ]
     @labels = [
-       :c1, :c1, :c1, :c2, :c2, :c3, :c3 
+       :c1, :c1, :c1, :c2, :c2, :c3, :c3
     ]
   end
-    
-    it "can be created" do
+
+  it "can be created" do
     expect do
       Measurable::WeightedOverlap.new([[1,1,1]], [:label])
     end.to_not raise_error
@@ -52,4 +51,3 @@ describe "WeightedOverlap distance" do
     d.should be_within(1e-5).of(w[1] + w[2])
   end
 end
-

@@ -32,7 +32,7 @@ module Measurable
           value = pair[0]
           count = pair[1]
           prob = count / @total_count.to_f
-          sum + prob * Math::log(prob, 2) 
+          sum + prob * Math::log(prob, 2)
         end
       end
 
@@ -44,8 +44,7 @@ module Measurable
       end
     end
   end
-  
-  
+
   require 'matrix'
   require 'pry'
 
@@ -58,8 +57,8 @@ module Measurable
       @feature_remap = Hash.new # feature value to index maps
       @feature_indexes.each.with_index do |feature_index, key|
         @distance_matrixes[key] = Hash.new(0.0)
-        remap = feature_index.feature_count.keys.sort_by{|x| feature_index.feature_count[x]}.first(matrix_size || MAX_MATRIX_SIZE)
-        uniq_feature_count = remap.size 
+        remap = feature_index.feature_count.keys.sort_by {|x| feature_index.feature_count[x]}.first(matrix_size || MAX_MATRIX_SIZE)
+        uniq_feature_count = remap.size
         matrix = Matrix.build(uniq_feature_count, uniq_feature_count) do |row, column|
           a = remap[row]
           b = remap[column]
@@ -68,10 +67,9 @@ module Measurable
           end / @normalization_size
         end
         @distance_matrixes[key] = matrix
-        @feature_remap[key] = remap.map.with_index{|x, i| [x, i] }.to_h
+        @feature_remap[key] = remap.map.with_index {|x, i| [x, i] }.to_h
       end
     end
-
 
     # +data+ - is array of data to learn
     # +labels+ - is corresponding to dataset targer label of class
@@ -93,7 +91,7 @@ module Measurable
       @normalization_size = @normalization_size == 0 ? 1 : @normalization_size
       pre_compute_distance_matrixes(options[:matrix_size])
       @feature_indexes.each(&:prepare_for_marshalling)
-      @label_count.default = nil 
+      @label_count.default = nil
     end
 
     # call-seq:
@@ -126,7 +124,7 @@ module Measurable
         remap = @feature_remap[key]
         index1 = remap[obj1[key]]
         index2 = remap[obj2[key]]
-        if index1.nil? || index2.nil? 
+        if index1.nil? || index2.nil?
           a = obj1[key]
           b = obj2[key]
           feature_index = @feature_indexes[key]
