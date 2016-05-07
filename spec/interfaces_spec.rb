@@ -19,7 +19,7 @@ describe "Interface for distance functions" do
   end
 
   it "should calc overlap distance" do
-    d = @x.distance(@y){ |x| x.reduce(0){ |sum, a| sum + (a[0] - a[1]).abs } }
+    d = @x.distance(@y) { |x| x.reduce(0) { |sum, a| sum + (a[0] - a[1]).abs } }
     d.should be(2)
   end
 

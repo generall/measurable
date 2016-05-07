@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  gem.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
 
   gem.require_paths = ["lib"]
 
@@ -26,6 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'nmatrix'
   gem.add_development_dependency 'bundler'
   gem.add_development_dependency 'pry'
+  gem.add_development_dependency 'rubocop'
   gem.add_development_dependency 'rake', '~> 10.1'
   gem.add_development_dependency 'rdoc', '~> 4.1'
   gem.add_development_dependency 'rspec', '~> 3.2'

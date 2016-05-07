@@ -28,7 +28,7 @@ describe "MVDM distance" do
       [1,2,5]
     ]
 
-    @labels = @data.map{|x| x.map{|y| y.odd? ? 1 : 0}.reduce(:+) > 1 ? :odd : :nodd }
+    @labels = @data.map {|x| x.map {|y| y.odd? ? 1 : 0}.reduce(:+) > 1 ? :odd : :nodd }
 
     @test = [
       [[1,1,1], [2,2,2]],

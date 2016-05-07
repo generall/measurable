@@ -70,8 +70,8 @@ module Measurable
         if options[:ratio]
           @weights.each do |key, w|
             feature_index = @feature_indexes[key]
-            entropy = feature_index.entropy 
-            w /= entropy if w.abs > 1e-9 
+            entropy = feature_index.entropy
+            w /= entropy if w.abs > 1e-9
             @weights[key] = w
           end
         end
@@ -88,12 +88,13 @@ module Measurable
       weight = @weight[idx]
       dist = f1 != f2 ? weight : 0.0;
     end
+
     # call-seq:
     #     weighted_overlap.distance(obj1, obj2) -> Float
     #
     # Calculate weighted similarity between +obj1+ and +obj2+.
     # Weights are calculated like Information Gain.
-    # 
+    #
     #
     # Return weighted sum of differences for all features in input datum.
     #
