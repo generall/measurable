@@ -1,5 +1,4 @@
 describe "Cosine" do
-
   context "Similarity" do
     before :all do
       @u = [1, 2]
@@ -12,19 +11,18 @@ describe "Cosine" do
       expect { Measurable.cosine_similarity(@u, @v, @w) }.to raise_error(ArgumentError)
     end
 
-    it "should be symmetric" do
+    it "is symmetric" do
       x = Measurable.cosine_similarity(@u, @v)
       y = Measurable.cosine_similarity(@v, @u)
-
-      x.should be_within(TOLERANCE).of(y)
+      expect(x).to be_within(TOLERANCE).of(y)
     end
 
-    it "should return the correct value" do
+    it "returns the correct value" do
       x = Measurable.cosine_similarity(@u, @v)
-      x.should be_within(TOLERANCE).of(0.992277877)
+      expect(x).to be_within(TOLERANCE).of(0.992277877)
     end
 
-    it "shouldn't work with vectors of different length" do
+    it "raises ArgumentError with vectors of different length" do
       expect { Measurable.cosine_similarity(@u, [1, 3, 5, 7]) }.to raise_error(ArgumentError)
     end
 
@@ -57,20 +55,20 @@ describe "Cosine" do
       expect { Measurable.cosine_distance(@u, @v, @w) }.to raise_error(ArgumentError)
     end
 
-    it "should be symmetric" do
+    it "is symmetric" do
       x = Measurable.cosine_distance(@u, @v)
       y = Measurable.cosine_distance(@v, @u)
 
       x.should be_within(TOLERANCE).of(y)
     end
 
-    it "should return the correct value" do
+    it "returns the correct value" do
       x = Measurable.cosine_distance(@u, @v)
       # TODO: Use a real example.
       x.should be_within(TOLERANCE).of(1.0 - 0.992277877)
     end
 
-    it "shouldn't work with vectors of different length" do
+    it "raises ArgumentError with vectors of different length" do
       expect { Measurable.cosine_distance(@u, [1, 3, 5, 7]) }.to raise_error(ArgumentError)
     end
   end

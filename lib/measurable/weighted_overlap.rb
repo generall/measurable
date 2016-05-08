@@ -86,7 +86,7 @@ module Measurable
     # calculate distance dontribution by features +f1+ and +f2+ with index +idx+
     def feature_contribution(f1, f2, idx)
       weight = @weight[idx]
-      dist = f1 != f2 ? weight : 0.0;
+      dist = f1 != f2 ? weight : 0.0
     end
 
     # call-seq:

@@ -57,7 +57,7 @@ module Measurable
       @feature_remap = Hash.new # feature value to index maps
       @feature_indexes.each.with_index do |feature_index, key|
         @distance_matrixes[key] = Hash.new(0.0)
-        remap = feature_index.feature_count.keys.sort_by {|x| feature_index.feature_count[x]}.first(matrix_size || MAX_MATRIX_SIZE)
+        remap = feature_index.feature_count.keys.sort_by { |x| feature_index.feature_count[x] }.first(matrix_size || MAX_MATRIX_SIZE)
         uniq_feature_count = remap.size
         matrix = Matrix.build(uniq_feature_count, uniq_feature_count) do |row, column|
           a = remap[row]
@@ -67,7 +67,7 @@ module Measurable
           end / @normalization_size
         end
         @distance_matrixes[key] = matrix
-        @feature_remap[key] = remap.map.with_index {|x, i| [x, i] }.to_h
+        @feature_remap[key] = remap.map.with_index { |x, i| [x, i] }.to_h
       end
     end
 

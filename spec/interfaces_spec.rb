@@ -15,7 +15,7 @@ describe "Interface for distance functions" do
   it "should calc euclidean distance" do
     obj = Measurable.object_for(:euclidean)
     d = @x.distance(@y, obj)
-    d.should be_within(0.1).of(2**(0.5))
+    d.should be_within(0.1).of(2**0.5)
   end
 
   it "should calc overlap distance" do

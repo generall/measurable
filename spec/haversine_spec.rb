@@ -9,7 +9,7 @@ describe "Haversine distance" do
     # TODO: Calculate better error estimates.
     @haversine_tolerance = 1
 
-    @u = [ 35.66667, 139.75] # Tokyo: 35 40' N, 139 45' E.
+    @u = [35.66667, 139.75] # Tokyo: 35 40' N, 139 45' E.
     @v = [-23.53333, -46.61667] # São Paulo: 23 32' S, 46 37' W.
   end
 

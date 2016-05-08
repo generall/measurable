@@ -53,7 +53,7 @@ Metrics/CyclomaticComplexity:
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
 # URISchemes: http, https
 Metrics/LineLength:
-  Max: 131
+  Max: 133
 
 # Offense count: 7
 # Configuration parameters: CountComments.
@@ -217,21 +217,6 @@ Style/IfUnlessModifier:
     - 'lib/measurable/levenshtein.rb'
     - 'lib/measurable/weighted_overlap.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Style/IndentArray:
-  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: normal, rails
-Style/IndentationConsistency:
-  Exclude:
-    - 'spec/weighted_overlap_spec.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/MutableConstant:
@@ -265,32 +250,12 @@ Style/PercentQLiterals:
   Exclude:
     - 'measurable.gemspec'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/RedundantParentheses:
-  Exclude:
-    - 'lib/measurable/haversine.rb'
-    - 'spec/interfaces_spec.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: AllowMultipleReturnValues.
 Style/RedundantReturn:
   Exclude:
     - 'lib/measurable/mvdm.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/measurable/euclidean.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'lib/measurable/weighted_overlap.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -328,19 +293,6 @@ Style/SpaceAroundOperators:
     - 'lib/measurable/mvdm.rb'
     - 'lib/measurable/weighted_overlap.rb'
     - 'spec/weighted_overlap_spec.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-Style/SpaceInsideBlockBraces:
-  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/SpaceInsideBrackets:
-  Exclude:
-    - 'spec/haversine_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

@@ -19,7 +19,7 @@ module Measurable
     # Raises:
     # - +ArgumentError+ -> The sizes of +u+ and +v+ don't match.
     def euclidean(u, v = nil)
-      Math.sqrt(self.euclidean_squared(u, v))
+      Math.sqrt(euclidean_squared(u, v))
     end
 
     # call-seq:
