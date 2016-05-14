@@ -1,6 +1,5 @@
 module Measurable
   module Minkowski
-
     # call-seq:
     #     minkowski(u, v) -> Numeric
     #

@@ -23,7 +23,7 @@ module Measurable
         fc = @feature_count[feature]
         fl = @feature_label[feature]
         return 0.0 unless fc || fl
-        return (fl[label] || 0.0) / fc.to_f
+        (fl[label] || 0.0) / fc.to_f
       end
 
       # calculate entropy of feature
@@ -48,7 +48,7 @@ module Measurable
   require 'matrix'
   require 'pry'
 
-  MAX_MATRIX_SIZE=1024
+  MAX_MATRIX_SIZE = 1024
   class MVDM
 
     # computes matrix for [feature, feature] summed over all labels
@@ -119,7 +119,7 @@ module Measurable
       fail ArgumentError if obj1.size != obj2.size
       fail ArgumentError if obj1.size != @distance_matrixes.size
       @distance_matrixes.reduce(0.0) do |sum, pair|
-        key  = pair[0]
+        key = pair[0]
         dist_matrix = pair[1]
         remap = @feature_remap[key]
         index1 = remap[obj1[key]]

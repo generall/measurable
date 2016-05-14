@@ -45,7 +45,7 @@ module Measurable
       return if data.empty? || labels.empty?
       fail ArgumentError if data.size != labels.size
 
-      @data_size  = data.size
+      @data_size = data.size
       @feature_indexes = data.first.size.times.map { Probabilities::FeatureIndex.new }
       @label_count = Hash.new { |hash, key| hash[key] = 0 }
 

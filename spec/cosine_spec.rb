@@ -31,7 +31,7 @@ describe "Cosine" do
         extend Measurable::Cosine
       end
       x = klass.cosine_similarity(@u, @v)
-      x.should be_within(TOLERANCE).of(0.992277877)
+      expect(x).to be_within(TOLERANCE).of(0.992277877)
     end
 
     it "can be extended separately" do
@@ -39,7 +39,7 @@ describe "Cosine" do
         include Measurable::Cosine
       end
       x = klass.new.cosine_similarity(@u, @v)
-      x.should be_within(TOLERANCE).of(0.992277877)
+      expect(x).to be_within(TOLERANCE).of(0.992277877)
     end
   end
 
@@ -58,14 +58,13 @@ describe "Cosine" do
     it "is symmetric" do
       x = Measurable.cosine_distance(@u, @v)
       y = Measurable.cosine_distance(@v, @u)
-
-      x.should be_within(TOLERANCE).of(y)
+      expect(x).to be_within(TOLERANCE).of(y)
     end
 
     it "returns the correct value" do
       x = Measurable.cosine_distance(@u, @v)
       # TODO: Use a real example.
-      x.should be_within(TOLERANCE).of(1.0 - 0.992277877)
+      expect(x).to be_within(TOLERANCE).of(1.0 - 0.992277877)
     end
 
     it "raises ArgumentError with vectors of different length" do

@@ -8,6 +8,9 @@ describe "Hamming distance" do
 
   it "accepts two arguments" do
     expect { Measurable.hamming(@u, @v) }.to_not raise_error
+  end
+
+  it 'raises ArgumentError with three arguments' do
     expect { Measurable.hamming(@u, @v, @w) }.to raise_error(ArgumentError)
   end
 
@@ -23,7 +26,7 @@ describe "Hamming distance" do
     x.should be(17)
   end
 
-  it "shouldn't work with strings of different length" do
+  it "raises ArgumentError with strings of different length" do
     expect { Measurable.hamming(@u, "smallstring") }.to raise_error(ArgumentError)
     expect { Measurable.hamming(@u, "largestring" * 20) }.to raise_error(ArgumentError)
   end

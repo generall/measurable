@@ -1,5 +1,4 @@
 module Measurable
-
   # Earth radius in miles.
   EARTH_RADIUS_IN_MILES = 3956
 
@@ -9,14 +8,13 @@ module Measurable
   # The great circle distance returned will be in whatever units R is in.
   # Provides
   EARTH_RADIUS = {
-    :miles => EARTH_RADIUS_IN_MILES,
-    :km => EARTH_RADIUS_IN_KILOMETERS,
-    :feet => EARTH_RADIUS_IN_MILES * 5282,
-    :meters => EARTH_RADIUS_IN_KILOMETERS * 1000
-  }
+    miles: EARTH_RADIUS_IN_MILES,
+    km: EARTH_RADIUS_IN_KILOMETERS,
+    feet: EARTH_RADIUS_IN_MILES * 5282,
+    meters: EARTH_RADIUS_IN_KILOMETERS * 1000
+  }.freeze
 
   module Haversine
-
     # call-seq:
     #     haversine(u, v) -> Float
     #
@@ -64,7 +62,7 @@ module Measurable
       lat2_rad = u[0] * RAD_PER_DEG
       lon2_rad = u[1] * RAD_PER_DEG
 
-      a = Math.sin(dlat_rad / 2) ** 2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(dlon_rad / 2) ** 2
+      a = Math.sin(dlat_rad / 2)**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * Math.sin(dlon_rad / 2)**2
       c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
       EARTH_RADIUS[unit] * c

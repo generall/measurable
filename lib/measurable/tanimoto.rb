@@ -2,7 +2,6 @@ require 'measurable/jaccard'
 
 module Measurable
   module Tanimoto
-
     # call-seq:
     #     tanimoto(u, v) -> Float
     #

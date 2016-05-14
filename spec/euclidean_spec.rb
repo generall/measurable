@@ -14,19 +14,19 @@ describe "Euclidean" do
 
     it "accepts one argument and returns the vector's norm" do
       # Remember that 3^2 + 4^2 = 5^2.
-      Measurable.euclidean([3, 4]).should == 5
+      expect(Measurable.euclidean([3, 4])).to eq 5
     end
 
     it "should be symmetric" do
-      Measurable.euclidean(@u, @v).should == Measurable.euclidean(@v, @u)
+      expect(Measurable.euclidean(@u, @v)).to eq Measurable.euclidean(@v, @u)
     end
 
     it "should return the correct value" do
-      Measurable.euclidean(@u, @u).should == 0
-      Measurable.euclidean(@u, @v).should == 1
+      expect(Measurable.euclidean(@u, @u)).to eq 0
+      expect(Measurable.euclidean(@u, @v)).to eq 1
     end
 
-    it "shouldn't work with vectors of different length" do
+    it "raises ArgumentError with vectors of different length" do
       expect { Measurable.euclidean(@u, [2, 2, 2, 2]) }.to raise_error(ArgumentError)
     end
 
@@ -35,7 +35,7 @@ describe "Euclidean" do
         extend Measurable::Euclidean
       end
 
-      klass.euclidean([3, 4]).should == 5
+      expect(klass.euclidean([3, 4])).to eq 5
     end
 
     it "can be included separately" do
@@ -43,7 +43,7 @@ describe "Euclidean" do
         include Measurable::Euclidean
       end
 
-      klass.new.euclidean([3, 4]).should == 5
+      expect(klass.new.euclidean([3, 4])).to eq 5
     end
   end
 
@@ -55,22 +55,22 @@ describe "Euclidean" do
 
     it "accepts one argument and returns the vector's norm" do
       # Remember that 3^2 + 4^2 = 5^2.
-      Measurable.euclidean_squared([3, 4]).should == 25
+      expect(Measurable.euclidean_squared([3, 4])).to eq 25
     end
 
     it "should be symmetric" do
       x = Measurable.euclidean_squared(@u, @v)
       y = Measurable.euclidean_squared(@v, @u)
 
-      x.should == y
+      expect(x).to eq y
     end
 
     it "should return the correct value" do
-      Measurable.euclidean_squared(@u, @u).should == 0
-      Measurable.euclidean_squared(@u, @v).should == 1
+      expect(Measurable.euclidean_squared(@u, @u)).to eq 0
+      expect(Measurable.euclidean_squared(@u, @v)).to eq 1
     end
 
-    it "shouldn't work with vectors of different length" do
+    it "raises ArgumentError with vectors of different length" do
       expect { Measurable.euclidean_squared(@u, [2, 2, 2, 2]) }.to raise_error(ArgumentError)
     end
   end

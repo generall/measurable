@@ -2,7 +2,6 @@ require 'measurable/euclidean'
 
 module Measurable
   module Cosine
-
     # call-seq:
     #     cosine_similarity(u, v) -> Float
     #
