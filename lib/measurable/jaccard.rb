@@ -1,6 +1,5 @@
 module Measurable
   module Jaccard
-
     # call-seq:
     #     jaccard_index(u, v) -> Float
     #

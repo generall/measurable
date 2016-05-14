@@ -1,6 +1,5 @@
 module Measurable
   module Chebyshev
-
     # call-seq:
     #     chebyshev(u, v) -> Float
     #

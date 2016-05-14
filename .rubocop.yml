@@ -8,14 +8,6 @@
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: AlignWith, SupportedStyles.
-# SupportedStyles: either, start_of_block, start_of_line
-Lint/BlockAlignment:
-  Exclude:
-    - 'spec/weighted_overlap_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: IgnoreEmptyBlocks.
 Lint/UnusedBlockArgument:
   Exclude:
@@ -164,24 +156,6 @@ Style/EmptyLinesAroundClassBody:
     - 'lib/measurable/mvdm.rb'
     - 'lib/measurable/weighted_overlap.rb'
 
-# Offense count: 13
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'lib/measurable/chebyshev.rb'
-    - 'lib/measurable/cosine.rb'
-    - 'lib/measurable/euclidean.rb'
-    - 'lib/measurable/hamming.rb'
-    - 'lib/measurable/haversine.rb'
-    - 'lib/measurable/jaccard.rb'
-    - 'lib/measurable/kullback_leibler.rb'
-    - 'lib/measurable/levenshtein.rb'
-    - 'lib/measurable/maxmin.rb'
-    - 'lib/measurable/minkowski.rb'
-    - 'lib/measurable/tanimoto.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/EmptyLiteral:
@@ -196,13 +170,6 @@ Style/ExtraSpacing:
     - 'lib/measurable/mvdm.rb'
     - 'lib/measurable/weighted_overlap.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles, UseHashRocketsWithSymbolValues.
-# SupportedStyles: ruby19, ruby19_no_mixed_keys, hash_rockets
-Style/HashSyntax:
-  EnforcedStyle: hash_rockets
-
 # Offense count: 2
 Style/IfInsideElse:
   Exclude:
@@ -216,13 +183,6 @@ Style/IfUnlessModifier:
     - 'lib/measurable/euclidean.rb'
     - 'lib/measurable/levenshtein.rb'
     - 'lib/measurable/weighted_overlap.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/MutableConstant:
-  Exclude:
-    - 'lib/measurable/haversine.rb'
-    - 'lib/measurable/version.rb'
 
 # Offense count: 1
 Style/NestedTernaryOperator:
@@ -250,13 +210,6 @@ Style/PercentQLiterals:
   Exclude:
     - 'measurable.gemspec'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'lib/measurable/mvdm.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
@@ -273,33 +226,6 @@ Style/SingleLineBlockParams:
   Exclude:
     - 'lib/measurable/cosine.rb'
     - 'spec/interfaces_spec.rb'
-
-# Offense count: 74
-# Cop supports --auto-correct.
-Style/SpaceAfterComma:
-  Exclude:
-    - 'spec/interfaces_spec.rb'
-    - 'spec/mvdm_spec.rb'
-    - 'spec/weighted_overlap_spec.rb'
-
-# Offense count: 15
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Style/SpaceAroundOperators:
-  Exclude:
-    - 'lib/measurable/euclidean.rb'
-    - 'lib/measurable/haversine.rb'
-    - 'lib/measurable/levenshtein.rb'
-    - 'lib/measurable/mvdm.rb'
-    - 'lib/measurable/weighted_overlap.rb'
-    - 'spec/weighted_overlap_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: use_perl_names, use_english_names
-Style/SpecialGlobalVars:
-  Enabled: false
 
 # Offense count: 149
 # Cop supports --auto-correct.

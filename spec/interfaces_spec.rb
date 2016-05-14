@@ -3,8 +3,8 @@ describe "Interface for distance functions" do
   before :all do
     @u = "Hi, I'm a test string!"
     @v = "Hello, not a test omg."
-    @x = [1,1]
-    @y = [2,2]
+    @x = [1, 1]
+    @y = [2, 2]
   end
 
   it "create object from measure label" do

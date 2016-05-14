@@ -1,6 +1,5 @@
 module Measurable
   module Hamming
-
     # call-seq:
     #     hamming(s1, s2) -> Integer
     #

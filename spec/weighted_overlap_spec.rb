@@ -16,7 +16,7 @@ describe "WeightedOverlap distance" do
 
   it "can be created" do
     expect do
-      Measurable::WeightedOverlap.new([[1,1,1]], [:label])
+      Measurable::WeightedOverlap.new([[1, 1, 1]], [:label])
     end.to_not raise_error
   end
 
@@ -24,7 +24,7 @@ describe "WeightedOverlap distance" do
     wo = Measurable::WeightedOverlap.new(@data, @labels)
     p1 = wo.feature_indexes[0].probability(:a, :c1)
     p2 = wo.feature_indexes[0].probability(:g, :c1)
-    p1.should be_within(1e-5).of(3/7.0)
+    p1.should be_within(1e-5).of(3 / 7.0)
     p2.should be_within(1e-5).of(0.0)
     w = wo.weights
     w[0].should be_within(1e-5).of(0.0)
@@ -33,10 +33,10 @@ describe "WeightedOverlap distance" do
   end
 
   it "should calc information gain ratio weighting" do
-    wo = Measurable::WeightedOverlap.new(@data, @labels, :ratio => true)
+    wo = Measurable::WeightedOverlap.new(@data, @labels, ratio: true)
     p1 = wo.feature_indexes[0].probability(:a, :c1)
     p2 = wo.feature_indexes[0].probability(:g, :c1)
-    p1.should be_within(1e-5).of(3/7.0)
+    p1.should be_within(1e-5).of(3 / 7.0)
     p2.should be_within(1e-5).of(0.0)
     w = wo.weights
     w[0].should be_within(1e-5).of(0.0)

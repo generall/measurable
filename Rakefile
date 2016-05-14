@@ -13,7 +13,7 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-task :default => [:spec]
+task default: [:spec]
 
 # Run all the specs.
 RSpec::Core::RakeTask.new(:spec)

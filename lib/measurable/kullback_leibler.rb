@@ -1,6 +1,5 @@
 module Measurable
   module KullbackLeibler
-
     # call-seq:
     #     kullback_leibler(p, q) -> Float
     #

@@ -1,6 +1,5 @@
 module Measurable
   module Maxmin
-
     # call-seq:
     #     maxmin(u, v) -> Float
     #
@@ -31,7 +30,6 @@ module Measurable
 
       sum_min / sum_max
     end
-
   end
 
   extend Measurable::Maxmin

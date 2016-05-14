@@ -1,6 +1,5 @@
 module Measurable
   module Euclidean
-
     # call-seq:
     #     euclidean(u) -> Float
     #     euclidean(u, v) -> Float
@@ -55,7 +54,7 @@ module Measurable
       raise ArgumentError if u.size != v.size
 
       u.zip(v).reduce(0.0) do |acc, ary|
-        acc += (ary[0] - ary[-1]) ** 2
+        acc += (ary[0] - ary[-1])**2
       end
     end
   end
