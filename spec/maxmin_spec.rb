@@ -15,16 +15,16 @@ describe "Max-min distance" do
     x = Measurable.maxmin(@u, @v)
     y = Measurable.maxmin(@v, @u)
 
-    x.should be_within(TOLERANCE).of(y)
+    expect(x).to be_within(TOLERANCE).of(y)
   end
 
-  it "should return the correct value" do
+  it "returns the correct value" do
     x = Measurable.maxmin(@u, @v)
 
-    x.should be_within(TOLERANCE).of(0.9523809523)
+    expect(x).to be_within(TOLERANCE).of(0.9523809523)
   end
 
-  it "shouldn't work with vectors of different length" do
+  it "raises ArgumentError with vectors of different length" do
     expect { Measurable.maxmin(@u, [1, 3, 5, 7]) }.to raise_error(ArgumentError)
   end
 
@@ -34,7 +34,7 @@ describe "Max-min distance" do
     end
     x = klass.maxmin(@u, @v)
 
-    x.should be_within(TOLERANCE).of(0.9523809523)
+    expect(x).to be_within(TOLERANCE).of(0.9523809523)
   end
 
   it "can be included separately" do
@@ -43,7 +43,7 @@ describe "Max-min distance" do
     end
     x = klass.new.maxmin(@u, @v)
 
-    x.should be_within(TOLERANCE).of(0.9523809523)
+    expect(x).to be_within(TOLERANCE).of(0.9523809523)
   end
 
 end

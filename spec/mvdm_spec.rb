@@ -1,5 +1,4 @@
 describe "MVDM distance" do
-
   before :all do
     @data = [
       [5, 6, 8],
@@ -46,15 +45,15 @@ describe "MVDM distance" do
     end.to_not raise_error
   end
 
-  it "should calc MVDM" do
+  it "calculates MVDM" do
     metric = Measurable::MVDM.new(@data, @labels)
     res = @test.map do |a, b|
       metric.distance(a, b)
     end
-    res[0].should > res[2]
-    res[0].should > res[3]
-    res[1].should > res[2]
-    res[1].should > res[3]
+    expect(res[0]).to be > res[2]
+    expect(res[0]).to be > res[3]
+    expect(res[1]).to be > res[2]
+    expect(res[1]).to be > res[3]
   end
 
   it "should calc MVDM ratio" do
@@ -62,10 +61,10 @@ describe "MVDM distance" do
     res = @test.map do |a, b|
       metric.distance(a, b)
     end
-    res[0].should > res[2]
-    res[0].should > res[3]
-    res[1].should > res[2]
-    res[1].should > res[3]
+    expect(res[0]).to be > res[2]
+    expect(res[0]).to be > res[3]
+    expect(res[1]).to be > res[2]
+    expect(res[1]).to be > res[3]
   end
 
   it "should be compatible with object interface" do
@@ -74,7 +73,6 @@ describe "MVDM distance" do
     arr2 = [2, 2, 2]
     arr1.measure = metric
     d = arr1.distance(arr2)
-    d.should be_within(0.01).of(3.6)
+    expect(d).to be_within(0.01).of(3.6)
   end
-
 end

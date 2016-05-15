@@ -1,11 +1,10 @@
 describe Measurable::Levenshtein do
-
   it "can be extended seperately" do
     klass = Class.new do
       extend Measurable::Levenshtein
     end
 
-    klass.levenshtein("ab", "abc").should == 1
+    expect(klass.levenshtein("ab", "abc")).to eq 1
   end
 
   it "can be included seperately" do
@@ -13,59 +12,54 @@ describe Measurable::Levenshtein do
       include Measurable::Levenshtein
     end
 
-    klass.new.levenshtein("ab", "abc").should == 1
+    expect(klass.new.levenshtein("ab", "abc")).to eq 1
   end
 
   context "strings" do
-
     it "handles empty" do
-      Measurable.levenshtein("", "").should == 0
-      Measurable.levenshtein("", "abcd").should == 4
-      Measurable.levenshtein("abcd", "").should == 4
+      expect(Measurable.levenshtein("", "")).to eq 0
+      expect(Measurable.levenshtein("", "abcd")).to eq 4
+      expect(Measurable.levenshtein("abcd", "")).to eq 4
     end
 
     it "should not count equality" do
-      Measurable.levenshtein("aa", "aa").should == 0
+      expect(Measurable.levenshtein("aa", "aa")).to eq 0
     end
 
     it "should count deletion" do
-      Measurable.levenshtein("ab", "a").should == 1
+      expect(Measurable.levenshtein("ab", "a")).to eq 1
     end
 
     it "should count insertion" do
-      Measurable.levenshtein("ab", "abc").should == 1
+      expect(Measurable.levenshtein("ab", "abc")).to eq 1
     end
 
     it "should count substitution" do
-      Measurable.levenshtein("aa", "ab").should == 1
+      expect(Measurable.levenshtein("aa", "ab")).to eq 1
     end
-
   end
 
   context "arrays" do
-
     it "handles empty" do
-      Measurable.levenshtein([], []).should == 0
-      Measurable.levenshtein([], %w[ a b c d ]).should == 4
-      Measurable.levenshtein(%w[ a b c d ], []).should == 4
+      expect(Measurable.levenshtein([], [])).to eq 0
+      expect(Measurable.levenshtein([], %w[ a b c d ])).to eq 4
+      expect(Measurable.levenshtein(%w[ a b c d ], [])).to eq 4
     end
 
     it "should not count equality" do
-      Measurable.levenshtein(%w[ a ], %w[ a ]).should == 0
+      expect(Measurable.levenshtein(%w[ a ], %w[ a ])).to eq 0
     end
 
     it "should count deletion" do
-      Measurable.levenshtein(%w[ a b ], %w[ a ]).should == 1
+      expect(Measurable.levenshtein(%w[ a b ], %w[ a ])).to eq 1
     end
 
     it "should count insertion" do
-      Measurable.levenshtein(%w[ a b ], %w[ a b c ]).should == 1
+      expect(Measurable.levenshtein(%w[ a b ], %w[ a b c ])).to eq 1
     end
 
     it "should count substitution" do
-      Measurable.levenshtein(%w[ a a ], %w[ a b ]).should == 1
+      expect(Measurable.levenshtein(%w[ a a ], %w[ a b ])).to eq 1
     end
-
   end
-
 end

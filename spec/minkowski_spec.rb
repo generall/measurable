@@ -1,5 +1,4 @@
 describe "Minkowski" do
-
   before :all do
     @u = [1, 3, 6]
     @v = [1, 4, 7]
@@ -13,12 +12,12 @@ describe "Minkowski" do
     end
 
     it "should be symmetric" do
-      Measurable.minkowski(@u, @v).should == Measurable.minkowski(@v, @u)
+      expect(Measurable.minkowski(@u, @v)).to eq Measurable.minkowski(@v, @u)
     end
 
-    it "should return the correct value" do
-      Measurable.minkowski(@u, @u).should == 0
-      Measurable.minkowski(@u, @v).should == 2
+    it "returns the correct value" do
+      expect(Measurable.minkowski(@u, @u)).to eq 0
+      expect(Measurable.minkowski(@u, @v)).to eq 2
     end
 
     it "shouldn't work with vectors of different length" do
@@ -30,7 +29,7 @@ describe "Minkowski" do
         extend Measurable::Minkowski
       end
 
-      klass.minkowski(@u, @u).should == 0
+      expect(klass.minkowski(@u, @u)).to eq 0
     end
 
     it "can be included separately" do
@@ -38,7 +37,7 @@ describe "Minkowski" do
         include Measurable::Minkowski
       end
 
-      klass.new.minkowski(@u, @u).should == 0
+      expect(klass.new.minkowski(@u, @u)).to eq 0
     end
   end
 end

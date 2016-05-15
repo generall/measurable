@@ -15,12 +15,12 @@ describe "Interface for distance functions" do
   it "should calc euclidean distance" do
     obj = Measurable.object_for(:euclidean)
     d = @x.distance(@y, obj)
-    d.should be_within(0.1).of(2**0.5)
+    expect(d).to be_within(0.1).of(2**0.5)
   end
 
   it "should calc overlap distance" do
     d = @x.distance(@y) { |x| x.reduce(0) { |sum, a| sum + (a[0] - a[1]).abs } }
-    d.should be(2)
+    expect(d).to be(2)
   end
 
   it "should calc hamming distance with string" do
@@ -33,7 +33,7 @@ describe "Interface for distance functions" do
     end
     @u.measure = Measurable.object_for(:hamming)
     d = @u.distance(@v)
-    d.should be(17)
+    expect(d).to be(17)
   end
 
   it "should create measure object" do
@@ -44,6 +44,6 @@ describe "Interface for distance functions" do
     obj = mClass.new
     @x.measure = obj
     d = @x.distance @y
-    d.should be_within(0.1).of(2**0.5)
+    expect(d).to be_within(0.1).of(2**0.5)
   end
 end

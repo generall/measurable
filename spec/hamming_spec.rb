@@ -18,12 +18,12 @@ describe "Hamming distance" do
     x = Measurable.hamming(@u, @v)
     y = Measurable.hamming(@v, @u)
 
-    x.should be(y)
+    expect(x).to be(y)
   end
 
   it "should return the correct value" do
     x = Measurable.hamming(@u, @v)
-    x.should be(17)
+    expect(x).to be(17)
   end
 
   it "raises ArgumentError with strings of different length" do
@@ -36,7 +36,7 @@ describe "Hamming distance" do
       extend Measurable::Hamming
     end
 
-    klass.hamming(@u, @v).should == 17
+    expect(klass.hamming(@u, @v)).to eq 17
   end
 
   it "can be included separately" do
@@ -44,6 +44,6 @@ describe "Hamming distance" do
       include Measurable::Hamming
     end
 
-    klass.new.hamming(@u, @v).should == 17
+    expect(klass.new.hamming(@u, @v)).to eq 17
   end
 end

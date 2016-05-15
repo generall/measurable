@@ -16,15 +16,15 @@ describe "Kullback-Leibler" do
     end
 
     it "shouldn't be symmetric" do
-      Measurable.kullback_leibler(@p, @q).should_not == Measurable.kullback_leibler(@q, @p)
+      expect(Measurable.kullback_leibler(@p, @q)).not_to eq Measurable.kullback_leibler(@q, @p)
     end
 
     it "should increase with dissimilarity" do
-      Measurable.kullback_leibler(@p, @uniform).should > Measurable.kullback_leibler(@p, @q)
+      expect(Measurable.kullback_leibler(@p, @uniform)).to be > Measurable.kullback_leibler(@p, @q)
     end
 
     it "should return the correct value" do
-      Measurable.kullback_leibler(@p, @uniform).should be_within(TOLERANCE).of 0.0960320738
+      expect(Measurable.kullback_leibler(@p, @uniform)).to be_within(TOLERANCE).of 0.0960320738
     end
 
     it "can be extended separately" do
@@ -32,7 +32,7 @@ describe "Kullback-Leibler" do
         extend Measurable::KullbackLeibler
       end
 
-      klass.kullback_leibler(@p, @q).should be_within(TOLERANCE).of 0.007310294
+      expect(klass.kullback_leibler(@p, @q)).to be_within(TOLERANCE).of 0.007310294
     end
 
     it "can be included separately" do
@@ -40,7 +40,7 @@ describe "Kullback-Leibler" do
         include Measurable::KullbackLeibler
       end
 
-      klass.new.kullback_leibler(@p, @q).should be_within(TOLERANCE).of 0.007310294
+      expect(klass.new.kullback_leibler(@p, @q)).to be_within(TOLERANCE).of 0.007310294
     end
   end
 end
