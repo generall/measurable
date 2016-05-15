@@ -22,13 +22,13 @@ describe "Haversine distance" do
     x = Measurable.haversine(@u, @v)
     y = Measurable.haversine(@v, @u)
 
-    x.should be_within(TOLERANCE).of(y)
+    expect(x).to be_within(TOLERANCE).of(y)
   end
 
   it "should return the correct value" do
     x = Measurable.haversine(@u, @v, :km)
 
-    x.should be_within(@haversine_tolerance).of(18533)
+    expect(x).to be_within(@haversine_tolerance).of(18533)
   end
 
   it "should only work with [lat, long] vectors" do
@@ -41,8 +41,7 @@ describe "Haversine distance" do
     end
 
     x = klass.haversine(@u, @v, :km)
-
-    x.should be_within(@haversine_tolerance).of(18533)
+    expect(x).to be_within(@haversine_tolerance).of(18533)
   end
 
   it "can be included seperately" do
@@ -51,7 +50,6 @@ describe "Haversine distance" do
     end
 
     x = klass.new.haversine(@u, @v, :km)
-
-    x.should be_within(@haversine_tolerance).of(18533)
+    expect(x).to be_within(@haversine_tolerance).of(18533)
   end
 end
